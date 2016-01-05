@@ -1,0 +1,67 @@
+.heading-step-2 {
+  margin: 6px 0px 0px -12px;
+}
+.panel-container {
+  padding-left: 48px;
+  padding-right: 0px;
+  width: 860px;
+  height: 678px;
+}
+.select-all-checkbox {
+  margin-top: 21px;
+  margin-left: 7px;
+  font-size: 29px;
+}
+.step-guide {
+  margin-right: 19px;
+}
+.select-all {
+  font-family: HelveticaNeue;
+  font-size: 16.08px;
+  color: #1B1B1B;
+  line-height: 18px;
+  text-align: left;
+}
+.select-person {
+  position: absolute;
+  top: 10px;
+  right: 7px;
+  font-size: 29px;
+}
+.invite-btn {
+  width: 814px;
+  height: 68px;
+}
+.skip {
+  font-size: 16px;
+}
+.person {
+  width: 124px;
+  height: 168px;
+  position: relative;
+  float: left;
+  margin-right: 35px;
+  margin-bottom: 18px;
+}
+.person-name {
+  font-family: HelveticaNeue;
+  font-size: 16.08px;
+  color: #1B1B1B;
+  text-align: center;
+  display: block;
+}
+.profile-image {
+  width: 124px;
+  height: 124px;
+}
+.people {
+  margin-top: 21px;
+  overflow: auto;
+  height: 409px;
+}
+.controls {
+  padding: 24px 21px 12px 22px;
+  margin-left: -48px;
+  margin-bottom: -38px;
+  border-top: 1px solid #979797;
+}

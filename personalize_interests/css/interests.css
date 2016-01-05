@@ -1,0 +1,104 @@
+.follow-btn {
+  width: 98%;
+  opacity:0.44;
+  background:#9B9B9B;
+  border-radius:4px;
+  height: 68px;
+}
+.done-btn {
+  border-radius:4px;
+  height: 68px;
+  background:#2E9FFF;
+  width: 98%;
+}
+.skip {
+  font-size: 16px;
+  color: #9B9B9B;
+}
+.interest {
+  width: 146px;
+  height: 146px;
+  position: relative;
+  float: left;
+  margin-right: 13px;
+  margin-bottom: 13px;
+  background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 50%, #000000 66%);
+  border-radius: 8px;
+}
+.interest-image {
+  position: absolute;
+  opacity: 0.94;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 50%, #000000 66%);
+  border-radius: 8px;
+}
+.interest-name {
+  font-family: HelveticaNeue-Medium;
+  font-size: 13px;
+  color: #FFFFFF;
+  line-height: 13px;
+  text-align: left;
+  position: absolute;
+  z-index: 1001;
+  bottom: 0;
+  padding-left: 15px;
+  padding-bottom: 12px;
+  opacity: 0.80;
+}
+.interests {
+  margin-top: 21px;
+  overflow: auto;
+  height: 360px;
+}
+.controls {
+  border-top: 1px solid #979797;
+  padding: 24px 30px 12px 30px;
+  margin-left: -32px;
+  margin-bottom: -38px;
+  margin-right: -35px;
+}
+.magnifier-img {
+  height: 18px;
+  width: 18px;
+  padding: 13px 14px;
+  position: absolute;
+  top: 28px;
+  left: 0px;
+}
+.search-bar-container {
+  position: relative;
+}
+.search {
+  font-family: HelveticaNeue;
+  font-size: 20px;
+  color: #9B9B9B;
+  line-height: 20px;
+  background: #F5F5F5;
+  box-shadow: inset 0px 1px 1px 0px rgba(0,0,0,0.20);
+  border-radius: 4px;
+  width: 98%;
+  height: 44px;
+  margin-top: 30px;
+  border: 0;
+}
+.selected {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: hsla(0,0%,40%,0.8);
+  border-radius: 8px;
+}
+.selected-checkmark {
+  width: 32px;
+  height: 27px;
+  position: absolute;
+  top: 58px;
+  left: 58px;
+}

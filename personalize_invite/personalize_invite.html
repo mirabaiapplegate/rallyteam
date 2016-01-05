@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Personalize Invite</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/invite.css">
+</head>
+
+<body>
+  <div class="panel-container">
+    <div class="step-guide">Step 1 of 2</div>
+    <h1 class="heading heading-step-1">Build your Rallyteam community.</h1>
+    <div class="sub-heading">Let’s import your address book so we can get you connected to the projects and ideas you most care about.</div>
+    <div><input type="text" class="email input" placeholder="Name@company.com"/></div>
+    <div><input type="text" class="password input" placeholder="Password"/></div>
+    <div><button class="btn continue-btn" id="js-continue-btn">Continue</button></div>
+    <div><a href="#" class="skip">Skip</a></div>
+  </div>
+  <div class="pop-up-container" style="display: none;">
+    <div class="overlay">
+    </div>
+    <div class="pop-up-panel">
+      <h3 class="pop-up-header">Skip this step?</h3>
+      <p class="pop-up-content">Don’t miss out on recruiting your teammates. There’s no “I” in Rallyteam ;)</p>
+      <div class="pop-up-controls">
+        <a href="#" class="skip-btn control-btn">Skip</a>
+        <a href="#" class="go-back-btn control-btn">Go back</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script>
+    $(function () {
+
+      $("#js-continue-btn").click(function () {
+        document.location="file:///Users/mirabaiapplegate/Development/rallyteam/personalize_invite/personalize_invite_2.html";
+      });
+
+      $(".skip").click(function () {
+        $('.pop-up-container').show();
+      });
+
+      $(".go-back-btn").click(function (evt) {
+        evt.preventDefault();
+        $('.pop-up-container').hide();
+      });
+
+    });
+  </script>
+  
+</body>
+</html>

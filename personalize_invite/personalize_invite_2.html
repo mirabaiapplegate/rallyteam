@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Personalize Invite</title>
+
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/invite2.css">
+</head>
+
+<body>
+  <div class="panel-container">
+    <div class="step-guide">Step 2 of 2</div>
+    <h1 class="heading heading-step-2">Add people you know.</h1>
+
+    <div><label class="select-all"><input type="checkbox" class="select-all-checkbox" checked="true"/>Select all</label></div>
+    <div class="people"></div>
+    <div class="controls">
+      <div><button class="invite-btn btn">Invite</button></div>
+      <div><a href="#" class="skip">Skip</a></div>
+    </div>
+  </div>
+  <div class="person-listing-template" style="display: none;">
+    <label>
+      <input type="checkbox" class="select-person"/>
+      <img src="" alt="" class="profile-image"/>
+      <span class="person-name"></span>
+    </label>
+  </div>
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script type="text/javascript">
+
+    var peopleData = [
+      { name: "Tamara Miller", picture: "images/profile_images/profile1.png", selected: true },
+      { name: "Nick Jones", picture: "images/profile_images/profile2.png", selected: true },
+      { name: "Mark McDougall", picture: "images/profile_images/profile3.png", selected: true },
+      { name: "Pablo Torres", picture: "images/profile_images/profile4.png", selected: true },
+      { name: "Diane Smith", picture: "images/profile_images/profile5.png", selected: true },
+      { name: "Jennifer Robinson", picture: "images/profile_images/profile6.png", selected: true },
+      { name: "Thomas Washington", picture: "images/profile_images/profile7.png", selected: true },
+      { name: "Becky Lopez", picture: "images/profile_images/profile1.png", selected: true },
+      { name: "Olivia Hunter", picture: "images/profile_images/profile5.png", selected: true },
+      { name: "Skylar Frank", picture: "images/profile_images/profile2.png", selected: true },
+      { name: "Sarah Fisher", picture: "images/profile_images/profile1.png", selected: true },
+      { name: "James Clark", picture: "images/profile_images/profile2.png", selected: true },
+      { name: "Uma Peterson", picture: "images/profile_images/profile3.png", selected: true },
+      { name: "Vince Francesi", picture: "images/profile_images/profile4.png", selected: true },
+      { name: "Wendy Zenone", picture: "images/profile_images/profile5.png", selected: true }
+    ];
+
+    $(function () {
+      for (var i = 0; i < peopleData.length; i += 1) {
+        var personData = peopleData[i];
+        var $personNode = $(".person-listing-template").clone();
+        var splitName = personData.name.split(' ');
+        var personName = splitName.join('<br />');
+        $personNode.attr('class','person');
+        $personNode.find(".profile-image").attr("src", personData.picture);
+        $personNode.find(".person-name").html(personName);
+        $personNode.find(".select-person").prop("checked", personData.selected);
+        $personNode.css("display", "block");
+        $(".people").append($personNode);
+      }
+
+      $(".select-all-checkbox").change(function (evt) {
+        var $this = $(this);
+        if ($this.is(":checked")) {
+          $(".select-person").prop("checked", true);
+        } else {
+          $(".select-person").prop("checked", false);
+        }
+      });
+
+      $(".select-person").change(function (evt) {
+        var $this = $(this);
+        if ($this.is(":checked") == false) {
+          $(".select-all-checkbox").prop("checked", false);
+        }
+      });
+
+    });
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,51 @@
+body {
+  background: #D7D7D7;
+}
+.panel-container {
+  background: #FFFFFF;
+  border: 1px solid #979797;
+  border-radius: 8px;
+  width: 855px;
+  height: 565px;
+  margin: 0 auto;
+  margin-top: 230px;
+  padding: 25px 60px 38px 60px;
+  box-sizing: border-box;
+}
+.step-guide {
+  font-family: HelveticaNeue-Bold;
+  font-size:16px;
+  color:#D3D3D3;
+  line-height:15px;
+  font-size: 16px;
+  float: right;
+  width: 114px;
+  text-align: right;
+  margin-right: -36px;
+}
+.heading {
+  font-family: HelveticaNeue-Bold;
+  font-size: 36px;
+  color: #4A4A4A;
+  line-height: 44px;
+  text-align: left;
+}
+.btn {
+  background: #2E9FFF;
+  border-radius: 4px;
+  font-family: AvenirNext-DemiBold;
+  font-size: 26.49px;
+  color: #FFFFFF;
+  line-height: 36px;
+  border: none;
+}
+.skip {
+  font-family: AvenirNext-Regular;
+  font-size: 21.19px;
+  color: #2E9FFF;
+  line-height: 26px;
+  margin-top: 9px;
+  text-align: center;
+  display: block;
+  text-decoration: underline;
+}

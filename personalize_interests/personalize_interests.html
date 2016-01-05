@@ -1,0 +1,124 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Personalize Invite</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/interests.css">
+
+</head>
+
+<body>
+  <div class="panel-container">
+    <div class="step-guide">Step 2 of 2</div>
+    <h1 class="heading">Now for the fun part...</h1>
+    <div class="sub-heading"><span class="sub-heading-blue">Follow 5 interests </span>and we’ll build a custom home feed for you</div>
+    <div class="search-bar-container">
+      <input type="search" class="search" placeholder="      Search for any interest"/>
+      <img src="images/interest_images/magnifier.png" alt="Search" class="magnifier-img" />
+    </div>
+    <div class="interests"></div>
+    <div class="controls">
+      <div><button class="follow-btn btn">Follow <span class="follow-count">5</span> more</button></div>
+      <div><button class="done-btn btn" style="display: none;">Done</button></div>
+      <div><a href="#" class="skip">Skip</a></div>
+    </div>
+  </div>
+  <div class="interest-listing-template" style="display: none;">
+    <div class="interest-image"></div>
+    <span class="interest-name"></span>
+    <div class="selected" style="display: none;">
+      <img class="selected-checkmark" src="images/interest_images/checkmark.png"/>
+    </div>
+  </div>
+  
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script type="text/javascript">
+    var interestsData = [
+      { name: "Education", picture: "images/interest_images/interest1.png" },
+      { name: "Sales and marketing", picture: "images/interest_images/interest2.png" },
+      { name: "Legal", picture: "images/interest_images/interest3.png" },
+      { name: "Media and entertainment", picture: "images/interest_images/interest4.png" },
+      { name: "Business management", picture: "images/interest_images/interest5.png" },
+      { name: "Human resources", picture: "images/interest_images/interest6.png" },
+      { name: "Electrical engineering", picture: "images/interest_images/interest7.png" },
+      { name: "Customer service", picture: "images/interest_images/interest8.png" },
+      { name: "Informational technology", picture: "images/interest_images/interest9.png" },
+      { name: "Healthcare", picture: "images/interest_images/interest10.png" },
+      { name: "Music", picture: "images/interest_images/interest11.png" },
+      { name: "Drafting", picture: "images/interest_images/interest2.png" },
+      { name: "Travel", picture: "images/interest_images/interest3.png" },
+      { name: "Graphic design", picture: "images/interest_images/interest4.png" },
+      { name: "Photography", picture: "images/interest_images/interest2.png" }
+    ];
+
+    $(function () {
+      for (var i = 0; i < interestsData.length; i += 1) {
+        var interestData = interestsData[i];
+        var $interestNode = $(".interest-listing-template").clone();
+        $interestNode.attr('class','interest');
+        $interestNode.attr('data-search', interestData.name);
+        $interestNode.find(".interest-image").css("background-image", "url(" + interestData.picture + ")");
+        $interestNode.find(".interest-name").html(interestData.name);
+        $interestNode.find(".select-interest").prop("checked", interestData.selected);
+        $interestNode.css("display", "block");
+        $(".interests").append($interestNode);
+      }
+
+      $(".search").on("keyup search", function (evt) {
+        var $this = $(this);
+        if($this.val() == "") {
+          $(".interest").show();
+          $(".magnifier-img").show();
+        } else {
+          $(".magnifier-img").hide();
+          $(".interest").each(function () {
+            var $interestNode = $(this);
+            var searchText = $interestNode.attr('data-search').toLowerCase();
+            var searchVal = $this.val().toLowerCase();
+            if(searchText.search(searchVal) != -1) {
+              $interestNode.show();
+            } else {
+              $interestNode.hide();
+            }
+          });
+        }
+
+      });
+
+      $(".magnifier-img").click(function () {
+        $(".search").focus();
+      });
+
+      $(".interest").click( function() {
+        var $this = $(this);
+        var followCount = parseInt($('.follow-count').text());
+        if ($this.hasClass('is-selected')) {
+          $this.removeClass('is-selected');
+          $this.find(".selected").hide();
+          followCount += 1;
+        } else {
+          $this.addClass('is-selected');
+          $this.find(".selected").show();
+          followCount -= 1;
+        }
+
+        $('.follow-count').text(followCount);
+        if(followCount <= 0) {
+          $('.done-btn').show();
+          $('.follow-btn').hide();
+        } else {
+          $('.done-btn').hide();
+          $('.follow-btn').show();
+        }
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>

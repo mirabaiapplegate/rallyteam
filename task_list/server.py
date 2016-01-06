@@ -70,11 +70,11 @@ def delete_task(task_id):
 if __name__ == "__main__":
     from doctest import testmod
     if testmod().failed == 0:
-        app.debug = True
+        app.debug = False
         connect_to_db(app)
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)
 
     PORT = int(os.environ.get("PORT", 5000))
-    app.run(debug=True, host="0.0.0.0", port=PORT)
+    app.run(debug=False, host="0.0.0.0", port=PORT)

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <title>Rallyteam Opportunity</title>
+
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.0/backbone-min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Rallyteam Opportunity</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 tasks-view-outlet"></div>
+      </div>
+    </div>
+
+    <script type="text/x-underscore-template" id="tasks-view-template">
+      <div class="panel panel-default">
+
+        <!-- Default panel contents -->
+        <div class="panel-heading">Tasks</div>
+        <div class="panel-body">
+          <div class="input-group">
+            <input type="text" class="form-control task-content" id="title" placeholder="Type a task...">
+            <span class="input-group-btn">
+              <button class="btn btn-default add-task" type="button">Add!</button>
+            </span>
+          </div>
+        </div>
+
+        <!-- List group -->
+        <ul class="list-group tasks-outlet">
+        </ul>
+      </div>
+    </script>
+    <script type="text/x-underscore-template" id="task-view-template">
+    <div class="row">
+      <div class="col-md-11">
+        <input type="text" class="form-control title-input" value="<%= title %>" />
+      </div>
+      <div class="col-md-1">
+        <input type="checkbox" class="checkbox form-control" />
+      </div>
+    </div>
+    </script>
+
+    <script type="text/javascript">
+    $(function () {
+
+      /////////////////////////////////////////////////
+      // Models
+      /////////////////////////////////////////////////
+      var Task = Backbone.Model.extend({
+
+        defaults: {
+          title: '',
+          completed: false
+        },
+
+      });
+
+      /////////////////////////////////////////////////
+      // Collections
+      /////////////////////////////////////////////////
+
+      var TasksCollection = Backbone.Collection.extend({
+        model: Task,
+        comparator: 'order',
+        url: '/tasks',
+
+      });
+
+      var tasks = new TasksCollection();
+
+      ////////////////////////////////////////////////
+      // Views
+      ////////////////////////////////////////////////
+
+      var TasksView = Backbone.View.extend({
+
+        template: _.template($("#tasks-view-template").text()),
+
+        events: {
+          'click .add-task':             'addTaskClickHandler',
+          'keydown .task-content':       'addTaskKeydownHandler',
+        },
+
+      /* Public: Initialize the Tasks view.
+       *
+       * Returns nothing.
+       */
+        initialize: function () {
+          this.listenTo(tasks, 'sync', this.renderTasks);
+        },
+
+      /* Public: Render the tasks view.
+       *
+       * Returns nothing.
+       */
+        render: function () {
+          var html = this.template();
+          this.$el.html(html);
+
+          tasks.fetch();
+        },
+
+      /* Private: Render all tasks.
+       *
+       * Returns nothing.
+       */
+        renderTasks: function () {
+          this.$('.tasks-outlet').empty();
+          var incompleteTasks = tasks.where({ completed: false }),
+          self = this;
+
+          _.each(incompleteTasks, function(task) { self.renderTask(task); });
+        },
+
+      /* Internal: Render the tasks.
+       *
+       * Instance of the Task Model.
+       */
+        renderTask: function (task) {
+          var taskView = new TaskView({
+            model: task
+          });
+          this.$(".tasks-outlet").append(taskView.$el);
+          taskView.render();
+        },
+
+      /* Internal: Handle the click event to add a task.
+       *
+       * Returns nothing.
+       */
+        addTaskClickHandler: function(event) {
+          if(this.$('#title').val() === '') {
+            return;
+          } else {
+            var task = tasks.create({
+              title: this.$('#title').val()
+            });
+
+            var view = new TaskView({ model: task });
+            view.render();
+
+            this.$(".tasks-outlet").append(view.$el);
+            $('#title').val('');
+          }
+        },
+
+      /* Internal: Handle the keydown event on return to add a task.
+       *
+       * Returns nothing.
+       */
+        addTaskKeydownHandler: function(e) {
+          if(this.$('#title').val() === '') {
+            return;
+          } else {
+            if (e.keyCode == 13) {
+              var task = tasks.create({
+                title: this.$('#title').val()
+              });
+
+              var view = new TaskView({ model: task });
+              view.render();
+
+              this.$(".tasks-outlet").append(view.$el);
+              $('#title').val('');
+            }
+          }
+        },
+
+      });
+
+      //////////////////////////////////////////////////////
+
+      var TaskView = Backbone.View.extend({
+        tagName: 'li',
+        className: 'list-group-item task',
+
+        template: _.template($("#task-view-template").text()),
+
+        events: {
+          'change .checkbox':   'changeCheckedHandler',
+          'blur   .title-input': 'blurTitleHandler',
+          'keyup  .title-input': 'keyupTitleHandler'
+        },
+
+      /* Public: Render the task view.
+       *
+       * Returns nothing.
+       */
+        render: function() {
+          this.$el.html(this.template(this.model.toJSON()));
+        },
+
+        changeCheckedHandler: function (event) {
+          this.model.set({ completed: true });
+          this.model.save();
+          this.remove();
+        },
+
+        blurTitleHandler: function (event) {
+          this.model.set({ title: this.$('.title-input').val() });
+          this.model.save();
+        },
+
+        keyupTitleHandler: function (event) {
+          if(event.keyCode == 13) {
+            this.model.set({ title: this.$('.title-input').val() });
+            this.model.save();
+            this.$('.title-input').blur();
+          }
+        }
+
+      });
+
+      ////////////////////////////////////////////////
+      // Start the app
+      ////////////////////////////////////////////////
+
+      var tasksView = new TasksView();
+      $('.tasks-view-outlet').html(tasksView.$el);
+      tasksView.render();
+    });
+    </script>
+  </body>
+</html>

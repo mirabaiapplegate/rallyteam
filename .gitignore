@@ -1,0 +1,4 @@
+task_list/env/*
+*.pyc
+
+task_list/tasks.db
